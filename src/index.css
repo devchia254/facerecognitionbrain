@@ -11,3 +11,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+  /* My Style below */
+body {
+  background-image: radial-gradient( circle farthest-corner at 10% 50.5%,  rgba(255,107,6,1) 0%, rgba(255,1,107,1) 90% );
+}
+
+button {
+  cursor: pointer;
+}
