@@ -3,12 +3,30 @@ import './FaceRecognition.css';
 
 const FaceRecognition = ({ imageUrl, box }) => {
     // console.log('check', imageUrl);
-    return (
+    // console.log("box: ", box[0]);
+    const listOfFaces = box.map((face, i) => {
+        const { topRow, rightCol, bottomRow, leftCol } = face;
+
+        return (
+            <div className='bounding-box' 
+                key={i} 
+                style={{
+                    top: topRow, 
+                    right: rightCol, 
+                    bottom: bottomRow, 
+                    left: leftCol 
+                }}>
+                { i }
+            </div>
+        )
+    });
+
+    return(
         <div className='center ma'>
-	        <div className='absolute mt2'>
-	        	<img id='inputimage' alt='' src={imageUrl} width='500px' height='auto' />
-                <div className='bounding-box' style={{top: box.topRow, right: box.rightCol, bottom: box.bottomRow, left: box.leftCol }}></div>
-	        </div>
+            <div className='absolute mt2'>
+                <img id='inputimage' alt='' src={imageUrl} width='500px' height='auto' />
+                { listOfFaces }
+            </div>
         </div>
     );
 }

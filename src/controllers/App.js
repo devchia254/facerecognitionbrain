@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import Navigation from './components/Navigation/Navigation';
-import Signin from './components/Signin/Signin';
-import Register from './components/Register/Register';
-import Logo from './components/Logo/Logo';
-import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
-import Rank from './components/Rank/Rank';
-import FaceRecognition from './components/FaceRecognition/FaceRecognition';
+import Navigation from '../components/Navigation/Navigation';
+import Signin from '../components/Signin/Signin';
+import Register from '../components/Register/Register';
+import Logo from '../components/Logo/Logo';
+import ImageLinkForm from '../components/ImageLinkForm/ImageLinkForm';
+import Rank from '../components/Rank/Rank';
+import Card from '../components/Card/Card';
+import FaceRecognition from '../components/FaceRecognition/FaceRecognition';
 import './App.css';
 import Particles from 'react-particles-js';
 
@@ -20,12 +21,13 @@ const particleOptions = {
     },
   }
 }
-
+// Change to 'route: home' to bypass the signin component'
 const initialState = {
   input: '',
   imageUrl: '',
-  box: {},
-  route: 'signin',
+  box: [], //{} initially. Changing into array[] can store more than one value.
+  route: 'home',
+  loading: false,
   isSignedIn: false,
   user: {
     id: '',
@@ -55,21 +57,32 @@ class App extends Component {
   }
 
   calculateFaceLocation = (data) => {
-    const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
+    const arrOfRegions = [];
+    const regions = data.outputs[0].data.regions;
+    console.log("array of regions:",arrOfRegions);
+
+    //Gets dimensions of the image used for detection
     const image = document.getElementById('inputimage');
     const width = Number(image.width);
     const height = Number(image.height);
-    // console.log(width, height);
-    return {
-      leftCol: clarifaiFace.left_col * width,
-      topRow: clarifaiFace.top_row * height,
-      rightCol: width - (clarifaiFace.right_col * width),
-      bottomRow: height - (clarifaiFace.bottom_row * height)
-    }
+    // console.log("width:", width, "hegiht:", height);
+
+    regions.forEach((region, i) => {
+      const boundingBox = region.region_info.bounding_box;
+      arrOfRegions.push({
+        leftCol: boundingBox.left_col * width,
+        topRow: boundingBox.top_row * height,
+        rightCol: width - (boundingBox.right_col * width),
+        bottomRow: height - (boundingBox.bottom_row * height)
+      })
+    });
+    return arrOfRegions;
+    //Solution could be return a foreach loop for the dimensions of each box to enable multiple face detections.
+    // Also change the return statement into an array of objects coz currently, it is only returning one object.
   }
 
   displayFaceBox = (box) => {
-    // console.log("box:", box);
+    console.log("box:", box);
     this.setState({box: box});
   }
 
@@ -137,8 +150,10 @@ class App extends Component {
 
         { route === 'home'
           ? <div>
-              <Logo />
-              <Rank name={this.state.user.name} entries={this.state.user.entries}/>
+              <Card>
+                <Logo />
+                <Rank name={this.state.user.name} entries={this.state.user.entries}/>
+              </Card>
               <ImageLinkForm 
                 onInputChange={this.onInputChange} 
                 onButtonSubmit={this.onButtonSubmit}
@@ -146,7 +161,8 @@ class App extends Component {
               <FaceRecognition 
                 box={box} 
                 imageUrl={imageUrl} 
-              />
+              >
+              </FaceRecognition>
             </div>
           : ( route === 'signin'
               ? <Signin loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
