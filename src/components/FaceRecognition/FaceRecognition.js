@@ -23,8 +23,8 @@ const FaceRecognition = ({ imageUrl, box }) => {
 
     return(
         <div className='center ma'>
-            <div className='absolute mt2'>
-                <img id='inputimage' alt='' src={imageUrl} width='500px' height='auto' />
+            <div className='relative mv3'>
+                <img id='inputimage' alt='' src={imageUrl} width='auto' max-height='100%' style={{ }} />
                 { listOfFaces }
             </div>
         </div>
