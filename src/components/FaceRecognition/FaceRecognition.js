@@ -22,9 +22,9 @@ const FaceRecognition = ({ imageUrl, box }) => {
     });
 
     return(
-        <div className='center ma'>
+        <div className='ma flex justify-center items-center'>
             <div className='relative mv3'>
-                <img id='inputimage' alt='' src={imageUrl} width='auto' max-height='100%' style={{ }} />
+                <img id='inputimage' className='br2' alt='' src={imageUrl} width='auto' height='auto' style={{ }} />
                 { listOfFaces }
             </div>
         </div>

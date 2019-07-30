@@ -5,7 +5,7 @@ import Register from '../components/Register/Register';
 import Logo from '../components/Logo/Logo';
 import ImageLinkForm from '../components/ImageLinkForm/ImageLinkForm';
 import Rank from '../components/Rank/Rank';
-import Card from '../components/Card/Card';
+import Navbar from '../components/Navbar/Navbar';
 import FaceRecognition from '../components/FaceRecognition/FaceRecognition';
 import './App.css';
 import Particles from 'react-particles-js';
@@ -140,41 +140,40 @@ class App extends Component {
 
     return (
       <div className="App">
-        <Navigation isSignedIn={isSignedIn} onRouteChange={this.onRouteChange}>
-          
-        </Navigation>
-
         <Particles 
           className='particles'
           params={particleOptions}
         />
+        <div className="navbar">
+          <Navbar>
+            <Logo />
+            <Rank isSignedIn={isSignedIn} name={this.state.user.name} entries={this.state.user.entries} box={box} />
+            <Navigation isSignedIn={isSignedIn} onRouteChange={this.onRouteChange}/>
+          </Navbar>
+        </div>
 
         { route === 'home'
-          ? <div className="content">
-              <div className="content-items content-item1">
-                <Card>
-                  <Logo />
-                  <Rank name={this.state.user.name} entries={this.state.user.entries} box={box} />
-                </Card>
-              </div>
-              <div className="content-items content-item2">
+          ?   <div className='content-page'>
                 <ImageLinkForm 
                   onInputChange={this.onInputChange} 
                   onButtonSubmit={this.onButtonSubmit}
                 />
-              </div>
-              <div className="content-items content-item3">
+              
                 <FaceRecognition 
                   box={box} 
                   imageUrl={imageUrl} 
                 >
                 </FaceRecognition>
               </div>
-            </div>
 
           : ( route === 'signin'
-              ? <Signin loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
-              : <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
+              ? <div className='content-page'>
+                  <Signin loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
+                </div>
+                  
+              : <div className='content-page'>
+                  <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
+                </div>
             )
         }
 

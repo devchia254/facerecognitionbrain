@@ -1,9 +1,9 @@
 
 /* My Style Below */
-.center {
+/* .center {
   display: flex;
   justify-content: center;
-}
+} */
 
 .particles {
   position: fixed;
@@ -14,6 +14,40 @@
   z-index: -1;
 }
 
+
+.App {
+  display: grid;
+  max-width: 100vw;
+  height: 100vh;
+  max-height: 100vh;
+  grid-gap: 2em;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas:
+  "navbar content-page";
+}
+
+.navbar {
+  grid-area: navbar;
+  overflow: hidden;
+}
+
+.content-page {
+  grid-area: content-page;
+  padding-right: 2em;
+  overflow-x: hidden; /* Hide horizontal scrollbar */
+  overflow-y: scroll; /* Add vertical scrollbar */
+}
+
+
+
+
+
+
+
+
+
+
 .content {
   padding-right: 2em;
   display: grid;
@@ -23,7 +57,6 @@
   max-height: 100vh;
   /* border: 10px solid peachpuff; */
 }
-
 .content-items {
   /* border: 5px dotted turquoise; */
 }
