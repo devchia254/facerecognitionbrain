@@ -37,6 +37,35 @@
   padding-right: 2em;
   overflow-x: hidden; /* Hide horizontal scrollbar */
   overflow-y: scroll; /* Add vertical scrollbar */
+  /* height: 100vh; */
+}
+
+.wrapper {
+  display: grid;
+  grid-gap: 2em;
+  grid-template-columns: 1fr 8fr 1fr;
+  grid-template-rows: repeat(4, minmax(100px, 1fr));
+  justify-items: center;
+  grid-template-areas:
+  "link-form link-form link-form"
+  ". image-section ."
+  ". image-section ."
+  ". image-section ."
+  ;
+}
+
+.wrapper-items {
+  /* background: salmon; */
+}
+
+.link-form {
+  grid-area: link-form;
+  min-width: 90%;
+}
+
+.image-section {
+  grid-area:image-section;
+  /* background: pink; */
 }
 
 

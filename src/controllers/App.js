@@ -154,16 +154,21 @@ class App extends Component {
 
         { route === 'home'
           ?   <div className='content-page'>
-                <ImageLinkForm 
-                  onInputChange={this.onInputChange} 
-                  onButtonSubmit={this.onButtonSubmit}
-                />
-              
-                <FaceRecognition 
-                  box={box} 
-                  imageUrl={imageUrl} 
-                >
-                </FaceRecognition>
+                <div className='wrapper'>
+                  <div className='wrapper-items link-form'>
+                    <ImageLinkForm 
+                      onInputChange={this.onInputChange} 
+                      onButtonSubmit={this.onButtonSubmit}
+                    />
+                  </div>
+                  <div className='wrapper-items image-section'>
+                    <FaceRecognition 
+                      box={box} 
+                      imageUrl={imageUrl} 
+                    >
+                    </FaceRecognition>
+                  </div>
+                </div>
               </div>
 
           : ( route === 'signin'

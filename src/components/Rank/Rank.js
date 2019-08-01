@@ -3,34 +3,23 @@ import React from 'react';
 const Rank = ({isSignedIn, name, entries, box}) => {
      if (isSignedIn) {
           return (
-               <div>
+               <div className='w-100 mt4'>
                     <div className='black mv3 f4'>
-                         {`Hello ${name}, these are your stats:`}
+                         {`Hello ${name}!`}
                     </div>
-                    <div>
-                    <table className="pb2 pv2 f6 w-100 mw8" cellSpacing="0">
-                         <thead className='tc black f4'>
+                    <h3 className='f4 mb0 mt4 code underline'>Your Stats</h3>
+                    <table className="pb2 pv2 f6 mw8 code" cellSpacing="0">
                               <tr className=''>
-                                   <th className="br pa2">Entries</th>
-                                   <th className="pa2">Faces</th>
+                                   <th className="pa2 f6 tr">Entries:</th>
+                                   <td className="pa1 f6">{entries}</td>
                               </tr>
-                         </thead>
-                         <tbody className='tc black f4'>
                               <tr>
-                                   <td className="br pa1">{entries}</td>
-                                   <td className="pa1">{box.length}</td>
+                                   <th className="pa2 f6 tr">Faces:</th>
+                                   <td className="pa1 f6">{box.length}</td>
                               </tr>
-                         </tbody>
                     </table>
-                    </div>
-                    {/* <div className='black f3'>
-                         
-                    </div>
-                    <div className='black f3'>
-                         Faces: 
-                    </div> */}
                </div>
-         );
+          );
      } else {
           return(null);
      }
