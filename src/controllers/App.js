@@ -82,7 +82,7 @@ class App extends Component {
   }
 
   displayFaceBox = (box) => {
-    console.log("box:", box);
+    // console.log("box:", box);
     this.setState({box: box});
   }
 
@@ -91,7 +91,8 @@ class App extends Component {
   }
 
   onButtonSubmit = () => {
-    this.setState({imageUrl: this.state.input})    
+    this.setState({imageUrl: this.state.input});
+
     fetch('http://localhost:3000/imageurl', {
       method: 'post',
       headers: {'Content-Type': 'application/json'},
@@ -131,12 +132,11 @@ class App extends Component {
   }
 
   render() {
-
-    // const member = this.state.route === 'signin'
-    //                 ? <Signin onRouteChange={this.onRouteChange}/>
-    //                 : <Register onRouteChange={this.onRouteChange}/>;
-
-    const { isSignedIn, imageUrl, route, box } = this.state;
+    const { isSignedIn, imageUrl, route, box, loading } = this.state;
+    // console.log("loading: ", loading);
+    // console.log("imageUrl: ", imageUrl);
+    // console.log("box: ", box);
+    // console.log("isSignedIn: ", isSignedIn);
 
     return (
       <div className="App">
@@ -162,11 +162,11 @@ class App extends Component {
                     />
                   </div>
                   <div className='wrapper-items image-section'>
-                    <FaceRecognition 
-                      box={box} 
-                      imageUrl={imageUrl} 
-                    >
-                    </FaceRecognition>
+                          <FaceRecognition 
+                            box={box} 
+                            imageUrl={imageUrl}
+                            loading={loading} 
+                          />
                   </div>
                 </div>
               </div>

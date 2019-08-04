@@ -1,10 +1,11 @@
 import React from 'react';
 
 const Rank = ({isSignedIn, name, entries, box}) => {
+     // console.log("Signed In:", isSignedIn);
      if (isSignedIn) {
           return (
                <div className='w-100 mt4'>
-                    <div className='black mv3 f4'>
+                    <div className='black mt3 f4'>
                          {`Hello ${name}!`}
                     </div>
                     <h3 className='f4 mb0 mt4 code underline'>Your Stats</h3>
@@ -21,7 +22,11 @@ const Rank = ({isSignedIn, name, entries, box}) => {
                </div>
           );
      } else {
-          return(null);
+          return (
+               <div className='w-100 mt4'>
+                    <p className='black mv3 f6'> <b>Note:</b> Please sign In or register before using the face recognition feature.</p>
+               </div>
+          );
      }
 }
 

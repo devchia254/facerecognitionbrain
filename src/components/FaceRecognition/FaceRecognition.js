@@ -2,8 +2,9 @@ import React from 'react';
 import './FaceRecognition.css';
 
 const FaceRecognition = ({ imageUrl, box }) => {
-    // console.log('check', imageUrl);
-    // console.log("box: ", box[0]);
+    // console.log("imageUrl: ", imageUrl);
+    // console.log("box: ", box.length);
+
     const listOfFaces = box.map((face, i) => {
         const { topRow, rightCol, bottomRow, leftCol } = face;
 
@@ -17,17 +18,17 @@ const FaceRecognition = ({ imageUrl, box }) => {
                     left: leftCol 
                 }}
             >
-            { i }
+            {/* { i } */}
             </div>
         )
     });
 
     return(
         <div className='flex justify-center items-center'>
-            <div className='relative'>
-                <img id='inputimage' className='br2 mb2 shadow-3' alt='' src={imageUrl} width='auto' height='auto' style={{maxHeight: '800px' }} />
-                { listOfFaces }
-            </div>
+                <div className='relative'>
+                    <img id='inputimage' className='br2 mb2 shadow-3' alt='' src={imageUrl} width='auto' height='auto' style={{maxHeight: '800px' }} />
+                    { listOfFaces }
+                </div>
         </div>
     );
 }
