@@ -26,7 +26,7 @@ const initialState = {
   input: '',
   imageUrl: '',
   box: [], //{} initially. Changing into array[] can store more than one value.
-  route: 'signin',
+  route: 'home',
   loading: false,
   isSignedIn: false,
   user: {
@@ -40,6 +40,7 @@ const initialState = {
 
 class App extends Component {
 
+  // Assigning to initialState clears the state once signed out. This prevents one user's image submitted in the app, stays in the app. That same image can be seen when another user logs in and trys the app
   constructor() {
     super();
     this.state = initialState;
@@ -57,9 +58,10 @@ class App extends Component {
   }
 
   calculateFaceLocation = (data) => {
-    const arrOfRegions = [];
+    console.log("data: ", data)
+    const arrOfBoundingBoxes = [];
     const regions = data.outputs[0].data.regions;
-    console.log("array of regions:",arrOfRegions);
+    console.log("array of bounding boxes:",arrOfBoundingBoxes);
 
     //Gets dimensions of the image used for detection
     const image = document.getElementById('inputimage');
@@ -69,14 +71,14 @@ class App extends Component {
 
     regions.forEach((region, i) => {
       const boundingBox = region.region_info.bounding_box;
-      arrOfRegions.push({
+      arrOfBoundingBoxes.push({
         leftCol: boundingBox.left_col * width,
         topRow: boundingBox.top_row * height,
         rightCol: width - (boundingBox.right_col * width),
         bottomRow: height - (boundingBox.bottom_row * height)
       })
     });
-    return arrOfRegions;
+    return arrOfBoundingBoxes;
     //Solution could be return a foreach loop for the dimensions of each box to enable multiple face detections.
     // Also change the return statement into an array of objects coz currently, it is only returning one object.
   }

@@ -1,68 +1,92 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Face Detection App
+`Live:` https://devchia254.github.io/swapi_robots/
 
-## Available Scripts
+![App Snapshot](./README_resources/gif-loginpage.gif)
 
-In the project directory, you can run:
+A web app that can detect multiple faces from an image URL.
 
-### `npm start`
+## Info
+- This web app uses the face recognition feature from the Clarifai API: https://www.clarifai.com/models/face-detection-image-recognition-model-a403429f2ddf4b49b307e318f00e528b-detection.
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+## Purpose
+The objective is to learn:-
 
-### `npm test`
+- The fundamentals of how to fetch data from an API
+- How to use AJAX and Promises
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Features & Code Snippets
+Below are some of the features and code extracts of this coding exercise.
 
-### `npm run build`
+### Multiple Face Recognition Feature
+---
+![AJAX Fetching](./README_resources/gif-faceDetect.gif)
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Before storing the character's data in the  `state`, an array  is created for listing all 10 URLs for fetching all the character's data.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+Once all the URLs are listed then the JSON data is fetched by using `Promises.all` and stored in the `state`, within `api_data`.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+##### App.js:
+```javascript
+calculateFaceLocation = (data) => {
+    const arrOfRegions = [];
+    const regions = data.outputs[0].data.regions;
+    console.log("array of regions:",arrOfRegions);
 
-### `npm run eject`
+    //Gets dimensions of the image used for detection
+    const image = document.getElementById('inputimage');
+    const width = Number(image.width);
+    const height = Number(image.height);
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+    regions.forEach((region, i) => {
+      const boundingBox = region.region_info.bounding_box;
+      arrOfRegions.push({
+        leftCol: boundingBox.left_col * width,
+        topRow: boundingBox.top_row * height,
+        rightCol: width - (boundingBox.right_col * width),
+        bottomRow: height - (boundingBox.bottom_row * height)
+      })
+    });
+    return arrOfRegions;
+  }
+```
+##### FaceRecognition.js:
+```javascript
+const listOfFaces = box.map((face, i) => {
+        const { topRow, rightCol, bottomRow, leftCol } = face;
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+        return (
+            <div className='bounding-box' 
+                key={i} 
+                style={{
+                    top: topRow, 
+                    right: rightCol, 
+                    bottom: bottomRow, 
+                    left: leftCol 
+                }}
+            >
+            {/* { i } */}
+            </div>
+        )
+    });
+  ```
+## NPM Dev Packages:
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+`gh-pages` was used to deploy the react app on Github Pages.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+`react` , `react-dom` and `react-scripts`, were initiated from the create-react-app command.
 
-## Learn More
+`tachyons` is a package for styling the site with greater ease.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+```json
+"dependencies": {
+    "clarifai": "^2.9.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-particles-js": "^2.6.0",
+    "react-scripts": "3.0.1",
+    "react-tilt": "^0.1.4",
+    "tachyons": "^4.11.1"
+  }
+```
