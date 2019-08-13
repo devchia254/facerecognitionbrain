@@ -26,7 +26,7 @@ const initialState = {
   input: '',
   imageUrl: '',
   box: [], //{} initially. Changing into array[] can store more than one value.
-  route: 'home',
+  route: 'signin',
   loading: false,
   isSignedIn: false,
   user: {
@@ -58,10 +58,10 @@ class App extends Component {
   }
 
   calculateFaceLocation = (data) => {
-    console.log("data: ", data)
+    // console.log("data: ", data)
     const arrOfBoundingBoxes = [];
     const regions = data.outputs[0].data.regions;
-    console.log("array of bounding boxes:",arrOfBoundingBoxes);
+    // console.log("array of bounding boxes:",arrOfBoundingBoxes);
 
     //Gets dimensions of the image used for detection
     const image = document.getElementById('inputimage');
@@ -95,7 +95,7 @@ class App extends Component {
   onButtonSubmit = () => {
     this.setState({imageUrl: this.state.input});
 
-    fetch('http://localhost:3000/imageurl', {
+    fetch('https://fast-sands-24633.herokuapp.com/imageurl', {
       method: 'post',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
@@ -105,7 +105,7 @@ class App extends Component {
       .then(response => response.json())
       .then(response => {
         if (response) {
-          fetch('http://localhost:3000/image', {
+          fetch('https://fast-sands-24633.herokuapp.com/image', {
             method: 'put',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
