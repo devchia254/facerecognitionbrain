@@ -28,7 +28,7 @@ const Rank = ({isSignedIn, name, entries, box}) => {
      } else {
           return (
                <div className='w-100 mt4'>
-                    <p className='black mv3 f6'> <b>Note:</b> Please sign in or register before using the face recognition feature.</p>
+                    <p className='black mv3 f6'> <b>Note:</b> Please sign in or register before using the face detection feature.</p>
                </div>
           );
      }
