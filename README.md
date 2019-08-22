@@ -82,7 +82,7 @@ When the image URL gets submitted, the `onButtonSubmit` function accesses the se
 ```javascript
 onButtonSubmit = () => {
   this.setState({imageUrl: this.state.input}); //Stores the input in the imageUrl state
-	// Create a post request for calling on the Clarifai API from the Back-end when the imageURL has been submitted
+// Create a post request for calling on the Clarifai API from the Back-end when the imageURL has been submitted
   fetch('https://fast-sands-24633.herokuapp.com/imageurl', {
     method: 'post',
     headers: {'Content-Type': 'application/json'},
@@ -92,7 +92,7 @@ onButtonSubmit = () => {
   })
     .then(response => response.json())
     .then(response => {
-			// If there is a response, it retrieves the ID of the user who submitted an image then increments the total entry of image submitted by that user.
+// If there is a response, it retrieves the ID of the user who submitted an image then increments the total entry of image submitted by that user.
       if (response) {
         fetch('https://fast-sands-24633.herokuapp.com/image', {
           method: 'put',
@@ -116,19 +116,15 @@ onButtonSubmit = () => {
 ## NPM Dev Packages:
 
 `react` , `react-dom` and `react-scripts`, were initiated from the create-react-app command.
-
 `tachyons` is a package for styling the site with greater ease.
-
 
 ```json
 "dependencies": {
-
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-particles-js": "^2.6.0",
     "react-scripts": "3.0.1",
     "react-tilt": "^0.1.4",
     "tachyons": "^4.11.1"
-
 }
 ```
