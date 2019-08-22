@@ -3,7 +3,7 @@
 
 ![App Snapshot](./README_resources/gif-loginpage.gif)
 
-A web app that can detect multiple faces submitted from an image URL. This is the source code of the front-end. To see the back-end, [click here](https://github.com/devchia254/facedetection-api).
+A web app that can detect multiple faces submitted from an image URL. This is the source code of the **Front-end**. To see the Back-end, [**click here**](https://github.com/devchia254/facedetection-api).
 
 ## Info
 - The Front-end is created using the `create-react-app `boilerplate from [Facebook](https://github.com/facebook/create-react-app).
@@ -12,10 +12,7 @@ A web app that can detect multiple faces submitted from an image URL. This is th
 
 
 ## Purpose
-The objective is to learn:-
-
-- The fundamentals of how to fetch data from an API
-- How to use AJAX and Promises
+- Learn how to create Full Stack web app using React, Node.js and PostgreSQL.
 
 ## Features & Code Snippets
 Below are some of the features and code extracts of this project.
